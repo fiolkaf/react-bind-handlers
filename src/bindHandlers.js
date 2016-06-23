@@ -2,7 +2,7 @@ export function bind(regexp) {
     return target => {
         const keys = Object.getOwnPropertyNames(target.prototype);
         const handlerNames = keys.filter(key => key.match(regexp))
-				.filter(key => typeof target.prototype[ key ] === 'function');
+            .filter(key => typeof target.prototype[key] === 'function');
 
         class Component extends target {
             constructor(...args) {

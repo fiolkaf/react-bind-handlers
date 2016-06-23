@@ -33,7 +33,7 @@ describe('bindHandlers class decorator', () => {
 
     Person.prototype.handleSpeech = function() {
         return this ? `${this.firstName} ${this.lastName} speaking` : null;
-    }
+    };
 
     it('binds component handler', () => {
         const AutoBoundComponent = bindHandlers(Component);
@@ -58,8 +58,8 @@ describe('bindHandlers class decorator', () => {
     it('should handle non functions', () => {
         const AutoBoundComponent = bind(/\w/)(Component);
         const { myHandle } = new AutoBoundComponent();
-        expect( myHandle, 'to equal', 'bond' );
-    }
+        expect(myHandle, 'to equal', 'bond');
+    });
 
     it('should handle multipe constructor parameters', () => {
         const AutoBoundComponent = bind(/\w/)(Person);
