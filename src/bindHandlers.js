@@ -5,8 +5,8 @@ export function bind(regexp) {
 				.filter(key => typeof target.prototype[ key ] === 'function');
 
         class Component extends target {
-            constructor(props) {
-                super(props);
+            constructor(...args) {
+                super(...args);
                 handlerNames.forEach(handlerName => this[handlerName] = this[handlerName].bind(this));
             }
         }

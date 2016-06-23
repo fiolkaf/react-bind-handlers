@@ -4,7 +4,7 @@ import { bindHandlers, bind } from './bindHandlers';
 describe('bindHandlers class decorator', () => {
 
     class Component {
-	
+
         constructor() {
             this.value = 'test';
         }
@@ -21,9 +21,18 @@ describe('bindHandlers class decorator', () => {
             return this ? this.value : null;
         }
 
-	get myHandle() {
-	    return 'bond';	
-	}
+        get myHandle() {
+            return 'bond';
+        }
+    }
+
+    function Person(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    Person.prototype.handleSpeech = function() {
+        return this ? `${this.firstName} ${this.lastName} speaking` : null;
     }
 
     it('binds component handler', () => {
@@ -48,7 +57,13 @@ describe('bindHandlers class decorator', () => {
 
     it('should handle non functions', () => {
         const AutoBoundComponent = bind(/\w/)(Component);
-	const { myHandle } = new AutoBoundComponent();
-	expect( myHandle, 'to equal', 'bond' );
+        const { myHandle } = new AutoBoundComponent();
+        expect( myHandle, 'to equal', 'bond' );
+    }
+
+    it('should handle multipe constructor parameters', () => {
+        const AutoBoundComponent = bind(/\w/)(Person);
+        const { handleSpeech } = new AutoBoundComponent('Testy', 'Test');
+        expect(handleSpeech(), 'to equal', 'Testy Test speaking');
     });
 });
